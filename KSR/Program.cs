@@ -13,7 +13,7 @@ namespace KSR
             SGMLParser sgmlParser = new SGMLParser();
             XmlDocument xmlDoc = sgmlParser.GetXmlDoc();
             
-            Console.WriteLine(xmlDoc.ParentNode);
+            Console.WriteLine(xmlDoc.OuterXml);
         }
     }
 }

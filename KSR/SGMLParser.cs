@@ -11,7 +11,8 @@ namespace KSR
 {
     class SGMLParser
     {
-        private const string filePath = "E:\\Studia - informatyka\\6 semestr\\KSR\\reuters21578\\reut2-000.sgm";
+        //private const string filePath = "E:\\Studia - informatyka\\6 semestr\\KSR\\reuters21578\\reut2-000.sgm";
+        private const string filePath = "C:\\Users\\maciej.jaszczura\\OneDrive - Accenture\\!Sync\\Downloads\\reuters21578.tar\\reut2-000.sgm";
         private const string dtdPath = "E:\\Studia - informatyka\\6 semestr\\KSR\\reuters21578\\lewis.dtd";
 
         public XmlDocument GetXmlDoc() {
@@ -30,6 +31,7 @@ namespace KSR
                 xmlDoc.PreserveWhitespace = true;
                 xmlDoc.XmlResolver = null;
                 xmlDoc.Load(sgmlReader);
+
 
                 //xmlDocList.Add(xmlDoc);
 
