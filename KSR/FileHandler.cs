@@ -19,7 +19,6 @@ namespace KSR
                 lines.Add("</ROOT>");
                 File.WriteAllLines(filePath, lines);
             }
-
         }
     }
 }

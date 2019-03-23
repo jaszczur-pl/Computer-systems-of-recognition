@@ -9,7 +9,7 @@ using Sgml;
 
 namespace KSR
 {
-    class SGMLParser
+    class SgmlToXmlParser
     {
         public XmlDocument GetXmlDoc(string filePath) {
             TextReader reader = new StreamReader(filePath);
@@ -20,10 +20,9 @@ namespace KSR
             sgmlReader.InputStream = reader;
 
             XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.PreserveWhitespace = true;
+            xmlDoc.PreserveWhitespace = false;
             xmlDoc.XmlResolver = null;
             xmlDoc.Load(sgmlReader);
-
 
             return xmlDoc;
         }
