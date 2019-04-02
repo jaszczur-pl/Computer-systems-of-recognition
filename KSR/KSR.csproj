@@ -46,13 +46,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileHandler.cs" />
+    <Compile Include="Processing.cs" />
     <Compile Include="SGMLParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Resources\reut2-000.sgm" />
+    <None Include="Resources\reut2-001.sgm" />
+    <None Include="Resources\reut2-002.sgm" />
+    <None Include="Resources\reut2-003.sgm" />
+    <None Include="Resources\reut2-004.sgm" />
+    <None Include="Resources\reut2-005.sgm" />
+    <None Include="Resources\reut2-006.sgm" />
+    <None Include="Resources\reut2-007.sgm" />
+    <None Include="Resources\reut2-008.sgm" />
+    <None Include="Resources\reut2-009.sgm" />
+    <None Include="Resources\reut2-010.sgm" />
+    <None Include="Resources\reut2-011.sgm" />
+    <None Include="Resources\reut2-012.sgm" />
+    <None Include="Resources\reut2-013.sgm" />
+    <None Include="Resources\reut2-014.sgm" />
+    <None Include="Resources\reut2-015.sgm" />
+    <None Include="Resources\reut2-016.sgm" />
+    <None Include="Resources\reut2-017.sgm" />
+    <None Include="Resources\reut2-018.sgm" />
+    <None Include="Resources\reut2-019.sgm" />
+    <None Include="Resources\reut2-020.sgm" />
+    <None Include="Resources\reut2-021.sgm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\stopwords.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

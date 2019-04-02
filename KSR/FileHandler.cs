@@ -10,7 +10,10 @@ namespace KSR
 {
     class FileHandler
     {
-        public void writeParentNode(string filePath) {
+        const string stopwordsPath = @"..\..\Resources\stopwords.txt";
+        const string sgmFilesDirectory = @"..\..\Resources";
+
+        public void WriteParentNode(string filePath) {
 
             var lines = File.ReadAllLines(filePath).ToList();
 
@@ -19,6 +22,16 @@ namespace KSR
                 lines.Add("</ROOT>");
                 File.WriteAllLines(filePath, lines);
             }
+        }
+
+        public string GetStopwords() {
+            TextReader reader = new StreamReader(stopwordsPath);
+
+            return reader.ReadToEnd();
+        }
+
+        public string[] GetAllSgmFilePaths() {
+            return Directory.GetFiles(sgmFilesDirectory, "*sgm");
         }
     }
 }
