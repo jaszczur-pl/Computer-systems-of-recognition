@@ -10,25 +10,52 @@ namespace KSR
 {
     class Processing
     {
-        XmlHandler XmlHandler { get; set; }
+        private readonly string allSerializedArticlesPath = @"..\..\Resources\all_articles.binary";
+        private List<string> keywords = new List<string> { "america", "germany", "cocoa" };
+        private List<string> userKeywords = new List<string>();
+        private string stringOfWords = "new york";
 
         public void MainProcess() {
+            
+            XmlHandler XmlHandler = new XmlHandler();
+            FileHandler fileHandler = new FileHandler();
 
-            XmlHandler = new XmlHandler();
-            XmlDocument xmlDoc = XmlHandler.GetMergedXmlDocuments();
-            XmlNodeList xmlNodeList = XmlHandler.GetAllCorrectNodes(xmlDoc);
+            //XmlDocument xmlDoc = XmlHandler.GetMergedXmlDocuments();
+            //XmlNodeList xmlNodeList = XmlHandler.GetAllCorrectNodes(xmlDoc);
+            //ArticleRepo articleRepo = new ArticleRepo(xmlNodeList);
 
-            //XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("REUTERS[PLACES[count(D)>1] or PLACES[count(D)=0]]");
+            //articleRepo.CleanUpTextAndRemoveStopwords();
+            //articleRepo.PerformStemming();
 
-            //foreach (XmlNode node in nodeList) {
-            //    xmlDoc.DocumentElement.RemoveChild(node);
-            //}
+            //fileHandler.Serialize(articleRepo, allSerializedArticlesPath);
 
-            //XmlHandler xmlHandler = new XmlHandler();
-            //string stopwordsRegex = xmlHandler.BuildStopwordsRegex(stopwordsPath);
+            ArticleRepo articleRepoDeserialized = new ArticleRepo();
+            articleRepoDeserialized = fileHandler.Deserialize(allSerializedArticlesPath);
 
-            //xmlDoc = xmlHandler.RemoveStopWords(xmlDoc, stopwordsRegex);
-            //xmlDoc.Save(xmlDocPath);
+            Extractor extractor = new Extractor();
+
+            foreach (Article article in articleRepoDeserialized.articles) {
+                article.WordCounter = extractor.CountAllWords(article.Text);
+                article.KeywordCounter = extractor.CountKeywords(keywords, article.Text);
+                article.hasExistingKeyword = extractor.CheckExistingKeywords(article.KeywordCounter, article.Text);
+                int keywordPosition = extractor.CheckKeywordPosition("america", article.Text);
+
+            }
+
+
+            int elementNumber = 1;
+            Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).WordCounter);
+            Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).hasExistingKeyword["america"]);
+            Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).hasExistingKeyword["germany"]);
+            Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).hasExistingKeyword["cocoa"]);
+            Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordCounter["america"]);
+            Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordCounter["germany"]);
+            Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordCounter["cocoa"]);
+            Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).Text);
+            Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).Label);
+            Console.ReadKey();
+
+
         }
 
     }

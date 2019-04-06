@@ -11,15 +11,15 @@ namespace KSR
 {
     class XmlHandler
     {
-        //Test method - need to be removed before final version
-        public void Test() {
-            string text = " ABC Abc aBC abc cos abcde";
-            string expression = @"\s(?i)(abc)\s";
+        ////Test method - need to be removed before final version
+        //public void Test() {
+        //    string text = " ABC Abc aBC abc cos abcde";
+        //    string expression = @"\s(?i)(abc)\s";
 
-            string newText = Regex.Replace(text, expression, " ");
-            string newText2 = Regex.Replace(newText, expression, " ");
-            Console.WriteLine(newText2);
-        }
+        //    string newText = Regex.Replace(text, expression, " ");
+        //    string newText2 = Regex.Replace(newText, expression, " ");
+        //    Console.WriteLine(newText2);
+        //}
 
         public XmlDocument GetMergedXmlDocuments() {
 
@@ -57,38 +57,6 @@ namespace KSR
             return nodeList;
         }
 
-        public XmlDocument RemoveStopWords(XmlDocument xmlDoc, string regex) {
-
-            foreach (XmlNode childNode in xmlDoc.DocumentElement.ChildNodes) {
-                Console.WriteLine(childNode.Attributes["NEWID"].Value);
-                XmlNode bodyNode = childNode.SelectSingleNode("TEXT/BODY");
-                if (!bodyNode.Equals(null)) {
-                    string articleText = bodyNode.InnerText;
-                    articleText = Regex.Replace(articleText, regex, " ");
-                    articleText = Regex.Replace(articleText, regex, " ");
-                    bodyNode.InnerText = articleText;
-                }
-            }
-
-            //string node = xmlDoc.DocumentElement.SelectSingleNode("//REUTERS/TEXT/BODY").InnerText;
-            //Console.WriteLine(regex);
-            //Console.WriteLine(node);
-
-            return xmlDoc;
-        }
-
-
-        public string BuildStopwordsRegex(string path) {
-
-            FileHandler fileHandler = new FileHandler();
-            string stopwords = fileHandler.GetStopwords();
-
-            stopwords= Regex.Replace(stopwords, @"\r\n?|\n", "|");
-
-            stopwords = @"\s(?i)(" + stopwords + @")\s";
-
-            return stopwords;
-        }
 
         public int Classify(List<XmlNode> fullSet) {
 
