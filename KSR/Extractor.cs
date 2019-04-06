@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Iveonik.Stemmers;
 
@@ -82,26 +83,55 @@ namespace KSR
             return hasExistingKeyword;
         }
 
-        //check the position of the word from the beginning of the text
-        public int CheckKeywordPosition(string word, string text) {
-            EnglishStemmer stemmer = new EnglishStemmer();
-            word = stemmer.Stem(word);
-            int position = -1;
+        public Dictionary<string, double> CheckKeywordFrequency(Dictionary<string, int> keywordCounter, int numberOfWordsInText) {
+            Dictionary<string, double> keywordsFrequency = new Dictionary<string, double>();
 
-            char[] delimiters = new char[] { ' ' };
-            string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-
-            int i = 0;
-            while (i < words.Length)
-            {
-                if(word == words[i]) {
-                    position = i + 1;
-                    break;
-                }
-                i++;
+            foreach (KeyValuePair<string, int> entry in keywordCounter) {
+                keywordsFrequency[entry.Key] = Math.Round((double)entry.Value / numberOfWordsInText, 3);
             }
 
-            return position;
+            return keywordsFrequency;
+        }
+
+        public bool CheckStringOfWords (string stringOfWords, string text) {
+            EnglishStemmer stemmer = new EnglishStemmer();
+            stringOfWords = stringOfWords.ToLower();
+
+            char[] delimiters = new char[] { ' ' };
+
+            foreach (string word in stringOfWords.Split(delimiters, StringSplitOptions.RemoveEmptyEntries)) {
+                stringOfWords = stringOfWords.Replace(word, stemmer.Stem(word));
+            }
+
+            bool hasString = Regex.IsMatch(text, stringOfWords);
+
+            return hasString;
+        }
+
+        //check the position of the word from the beginning of the text
+        public Dictionary<string, int> CheckKeywordPosition(List<string> listOfWords, string text) {
+            EnglishStemmer stemmer = new EnglishStemmer();
+            Dictionary<string, int> keywordsPosition = new Dictionary<string, int>();
+
+            foreach(string word in listOfWords) {
+                string stemmedWord = stemmer.Stem(word);
+                int position = -1;
+
+                char[] delimiters = new char[] { ' ' };
+                string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+
+                int i = 0;
+                while (i < words.Length) {
+                    if (word == words[i]) {
+                        position = i + 1;
+                        break;
+                    }
+                    i++;
+                }
+                keywordsPosition[word] = position;
+            }
+
+            return keywordsPosition;
         }
     }
 }

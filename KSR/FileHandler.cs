@@ -25,12 +25,6 @@ namespace KSR
             }
         }
 
-        public string GetStopwords() {
-            TextReader reader = new StreamReader(stopwordsPath);
-
-            return reader.ReadToEnd();
-        }
-
         public List<string> GetStopwords2() {
             return File.ReadAllLines(stopwordsPath).ToList();
         }

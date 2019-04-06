@@ -11,16 +11,6 @@ namespace KSR
 {
     class XmlHandler
     {
-        ////Test method - need to be removed before final version
-        //public void Test() {
-        //    string text = " ABC Abc aBC abc cos abcde";
-        //    string expression = @"\s(?i)(abc)\s";
-
-        //    string newText = Regex.Replace(text, expression, " ");
-        //    string newText2 = Regex.Replace(newText, expression, " ");
-        //    Console.WriteLine(newText2);
-        //}
-
         public XmlDocument GetMergedXmlDocuments() {
 
             FileHandler fileHandler = new FileHandler();
