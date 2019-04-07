@@ -135,20 +135,18 @@ namespace KSR
             return keywordsPosition;
         }
 
-        public double Classify(ArticleRepo trainingSet, ArticleRepo testedSet) {
+        public double Classify(ArticleRepo trainingSet, ArticleRepo testedSet, int neighboursNumber, IMetric metric) {
 
-            EuclideanMetric euclideanMetric = new EuclideanMetric();
             Dictionary<Article[], double> distancesDict = new Dictionary<Article[], double>();
             List<string> trainingLabels = new List<string>();
 
-            int k = 15;
             int truePositiveCounter = 0;
             int testedSetSize = testedSet.articles.Count;
 
             foreach(Article testedArticle in testedSet.articles) {
 
                 foreach(Article trainingArticle in trainingSet.articles) {
-                    double distance = euclideanMetric.CalculateDistance(trainingArticle.AllCharacteristicValues, testedArticle.AllCharacteristicValues);
+                    double distance = metric.CalculateDistance(trainingArticle.AllCharacteristicValues, testedArticle.AllCharacteristicValues);
                     Article[] articleIDPair = { testedArticle, trainingArticle };
                     distancesDict[articleIDPair] = distance;
                 }
@@ -156,7 +154,7 @@ namespace KSR
                 var sortedDict = (from entry
                                  in distancesDict
                                   orderby entry.Value ascending
-                                  select entry).Take(k);
+                                  select entry).Take(neighboursNumber);
 
                 foreach(var item in sortedDict) {
                     string trainingLabel = item.Key.ElementAt(1).Label;

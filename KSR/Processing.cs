@@ -12,9 +12,9 @@ namespace KSR
     class Processing
     {
         private readonly string allSerializedArticlesPath = @"..\..\Resources\all_articles.binary";
-        private List<string> keywords = new List<string> { "america", "germany", "cocoa" };
+        private List<string> keywords = new List<string> { "usa", "germany", "cocoa" };
         //mocks - to be changed
-        private List<string> userKeywords = new List<string>() { "america"};
+        private List<string> userKeywords = new List<string>() { "usa"};
         private string stringOfWords = "american dream";
 
         public void MainProcess() {
@@ -69,14 +69,17 @@ namespace KSR
             Article B = new Article { Label = "germany", ID = "2", AllCharacteristicValues = new List<double> { 5.0, 7.0, 9.0 } };
             Article C = new Article { Label = "usa", ID = "3", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
             Article D = new Article { Label = "poland", ID = "4", AllCharacteristicValues = new List<double> { 6.0, 8.0, 4.0 } };
+            Article E = new Article { Label = "poland", ID = "3", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
 
             ArticleRepo trainingRep = new ArticleRepo();
             trainingRep.articles = new List<Article> { A, B, D };
 
             ArticleRepo testedRep = new ArticleRepo();
-            testedRep.articles = new List<Article> { C };
+            testedRep.articles = new List<Article> { C, E };
 
-            double acc = extractor.Classify(trainingRep, testedRep);
+            int neighboursNumber = 15;
+            IMetric metric = new EuclideanMetric();
+            double acc = extractor.Classify(trainingRep, testedRep, neighboursNumber, metric);
 
             Console.WriteLine(acc);
         }

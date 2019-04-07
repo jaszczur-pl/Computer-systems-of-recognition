@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KSR.Metrics
 {
-    class EuclideanMetric
+    class EuclideanMetric:IMetric
     {
         public double CalculateDistance(List<double> appointedAttributes, List<double> testedAttributes) {
             double distance = 0;

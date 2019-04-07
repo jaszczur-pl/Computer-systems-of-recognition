@@ -53,6 +53,7 @@
     <Compile Include="Extractor.cs" />
     <Compile Include="FileHandler.cs" />
     <Compile Include="Metrics\EuclideanMetric.cs" />
+    <Compile Include="Metrics\IMetric.cs" />
     <Compile Include="Metrics\ManhattanMetric.cs" />
     <Compile Include="Metrics\MaximumMetric.cs" />
     <Compile Include="Processing.cs" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KSR.Metrics
 {
-    class MaximumMetric
+    class MaximumMetric:IMetric
     {
         public double CalculateDistance(List<double> appointedAttributes, List<double> testedAttributes) {
             double distance = 0;

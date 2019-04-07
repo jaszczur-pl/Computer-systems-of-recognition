@@ -19,6 +19,7 @@ namespace KSR
         public Dictionary<string, int> KeywordFirstPosition { get; set; }
         public Dictionary<string, int> UserKeywordCounter { get; set; }
         public Dictionary<string, double> KeywordFrequency { get; set; }
+
         public List<double> AllCharacteristicValues { get; set; }
 
         public void SetAllCharacteristicsValue() {
