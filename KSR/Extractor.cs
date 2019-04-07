@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Iveonik.Stemmers;
+using KSR.Metrics;
 
 namespace KSR
 {
@@ -132,6 +133,46 @@ namespace KSR
             }
 
             return keywordsPosition;
+        }
+
+        public double Classify(ArticleRepo trainingSet, ArticleRepo testedSet) {
+
+            EuclideanMetric euclideanMetric = new EuclideanMetric();
+            Dictionary<Article[], double> distancesDict = new Dictionary<Article[], double>();
+            List<string> trainingLabels = new List<string>();
+
+            int k = 15;
+            int truePositiveCounter = 0;
+            int testedSetSize = testedSet.articles.Count;
+
+            foreach(Article testedArticle in testedSet.articles) {
+
+                foreach(Article trainingArticle in trainingSet.articles) {
+                    double distance = euclideanMetric.CalculateDistance(trainingArticle.AllCharacteristicValues, testedArticle.AllCharacteristicValues);
+                    Article[] articleIDPair = { testedArticle, trainingArticle };
+                    distancesDict[articleIDPair] = distance;
+                }
+
+                var sortedDict = (from entry
+                                 in distancesDict
+                                  orderby entry.Value ascending
+                                  select entry).Take(k);
+
+                foreach(var item in sortedDict) {
+                    string trainingLabel = item.Key.ElementAt(1).Label;
+                    trainingLabels.Add(trainingLabel);
+                }
+
+                string testedLabel = trainingLabels.GroupBy(x => x).OrderByDescending(x => x.Count()).First().Key;
+
+                if(testedLabel == testedArticle.Label) {
+                    truePositiveCounter++;
+                }
+            }
+
+            double accuracy = (double)truePositiveCounter / testedSetSize;
+
+            return accuracy;
         }
     }
 }

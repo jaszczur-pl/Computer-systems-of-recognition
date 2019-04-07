@@ -46,29 +46,5 @@ namespace KSR
 
             return nodeList;
         }
-
-
-        public int Classify(List<XmlNode> fullSet) {
-
-            List<XmlNode> trainingSet = new List<XmlNode>();
-            List<XmlNode> learningSet = new List<XmlNode>();
-
-            int numberOfElements = fullSet.Count;
-            int numberOfTrainingElements = Convert.ToInt32(0.6 * numberOfElements);
-            int truePositiveCounter = 0;
-            int k = 15;
-
-            for (int i=0; i < numberOfTrainingElements; i++) {
-                trainingSet.Add(fullSet.ElementAt(i));
-            }
-
-            for (int i = numberOfTrainingElements; i < numberOfElements; i++) {
-                learningSet.Add(fullSet.ElementAt(i));   
-            }
-
-
-
-            return 0;
-        }
     }
 }

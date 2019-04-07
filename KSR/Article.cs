@@ -19,5 +19,28 @@ namespace KSR
         public Dictionary<string, int> KeywordFirstPosition { get; set; }
         public Dictionary<string, int> UserKeywordCounter { get; set; }
         public Dictionary<string, double> KeywordFrequency { get; set; }
+        public List<double> AllCharacteristicValues { get; set; }
+
+        public void SetAllCharacteristicsValue() {
+            AllCharacteristicValues = new List<double>();
+            AllCharacteristicValues.Add(WordCounter);
+
+            foreach(KeyValuePair<string, int> entry in KeywordCounter) {
+                AllCharacteristicValues.Add(entry.Value);
+            }
+
+            foreach (KeyValuePair<string, int> entry in KeywordFirstPosition) {
+                AllCharacteristicValues.Add(entry.Value);
+            }
+
+            foreach (KeyValuePair<string, int> entry in UserKeywordCounter) {
+                AllCharacteristicValues.Add(entry.Value);
+            }
+
+            foreach (KeyValuePair<string, double> entry in KeywordFrequency) {
+                AllCharacteristicValues.Add(entry.Value);
+            }
+
+        }
     }
 }
