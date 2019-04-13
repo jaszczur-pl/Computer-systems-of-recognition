@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C2341674-80B7-4B7A-894E-4F4FBB42B663}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>KSR</RootNamespace>
     <AssemblyName>KSR</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -57,10 +57,12 @@
     <Compile Include="ArticleRepo.cs" />
     <Compile Include="Extractor.cs" />
     <Compile Include="FileHandler.cs" />
+    <Compile Include="Metrics\AnotherMetric.cs" />
     <Compile Include="Metrics\EuclideanMetric.cs" />
     <Compile Include="Metrics\IMetric.cs" />
     <Compile Include="Metrics\ManhattanMetric.cs" />
     <Compile Include="Metrics\MaximumMetric.cs" />
+    <Compile Include="Metrics\MinMaxMetric.cs" />
     <Compile Include="Processing.cs" />
     <Compile Include="SGMLParser.cs" />
     <Compile Include="Program.cs" />
