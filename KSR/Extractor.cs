@@ -135,6 +135,33 @@ namespace KSR
             return keywordsPosition;
         }
 
+        public double calculateGeneralNGrams(string firstWord, string secondWord) {
+
+            int firstWordLength = firstWord.Length;
+            int secondWordLength = secondWord.Length;
+
+            int max = Math.Max(firstWordLength, secondWordLength);
+            int counter = 0;
+
+            for (int stringLen = 1; stringLen <= firstWordLength; stringLen++) {
+                for (int i = 0; i < firstWordLength - stringLen + 1; i++) {
+                    string subFirstWord = firstWord.Substring(i, stringLen);
+
+                    for (int j = 0; j <= firstWordLength - stringLen + 1; j++) {
+                        string subSecondWord = secondWord.Substring(j, stringLen);
+                        if (subFirstWord == subSecondWord) {
+                            counter++;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            double result = (double) 2* counter / (max * max + max);
+
+            return result;
+        }
+
         public double Classify(ArticleRepo trainingSet, ArticleRepo testedSet, int neighboursNumber, IMetric metric) {
 
             Dictionary<Article[], double> distancesDict = new Dictionary<Article[], double>();
