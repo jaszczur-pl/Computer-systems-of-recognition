@@ -27,18 +27,18 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Button button1;
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textKeyWord = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textStringOfWords = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxMetric = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textWynik = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textNoOfNeighbours = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBoxSetSize = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -53,12 +53,13 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
+            // textKeyWord
             // 
-            this.textBox1.Location = new System.Drawing.Point(45, 46);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 20);
-            this.textBox1.TabIndex = 1;
+            this.textKeyWord.Location = new System.Drawing.Point(45, 46);
+            this.textKeyWord.Name = "textKeyWord";
+            this.textKeyWord.Size = new System.Drawing.Size(121, 20);
+            this.textKeyWord.TabIndex = 1;
+            this.textKeyWord.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // toolTip1
             // 
@@ -76,12 +77,12 @@
             this.label1.Text = "Słowo kluczowe";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // textBox2
+            // textStringOfWords
             // 
-            this.textBox2.Location = new System.Drawing.Point(45, 104);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(121, 20);
-            this.textBox2.TabIndex = 3;
+            this.textStringOfWords.Location = new System.Drawing.Point(45, 104);
+            this.textStringOfWords.Name = "textStringOfWords";
+            this.textStringOfWords.Size = new System.Drawing.Size(121, 20);
+            this.textStringOfWords.TabIndex = 3;
             // 
             // label2
             // 
@@ -93,19 +94,19 @@
             this.label2.Text = "Podciąg wyrazów";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // comboBox1
+            // comboBoxMetric
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comboBoxMetric.FormattingEnabled = true;
+            this.comboBoxMetric.Items.AddRange(new object[] {
             "Euklidesowa",
             "Uliczna",
             "Czebyszewa",
             "MinMax",
             "MinMax2"});
-            this.comboBox1.Location = new System.Drawing.Point(45, 158);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 5;
+            this.comboBoxMetric.Location = new System.Drawing.Point(45, 158);
+            this.comboBoxMetric.Name = "comboBoxMetric";
+            this.comboBoxMetric.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxMetric.TabIndex = 5;
             // 
             // label3
             // 
@@ -117,13 +118,13 @@
             this.label3.Text = "Metryka";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // textBox3
+            // textWynik
             // 
-            this.textBox3.Location = new System.Drawing.Point(218, 46);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 7;
+            this.textWynik.Location = new System.Drawing.Point(218, 46);
+            this.textWynik.Name = "textWynik";
+            this.textWynik.ReadOnly = true;
+            this.textWynik.Size = new System.Drawing.Size(100, 20);
+            this.textWynik.TabIndex = 7;
             // 
             // label4
             // 
@@ -134,12 +135,12 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Wynik";
             // 
-            // textBox4
+            // textNoOfNeighbours
             // 
-            this.textBox4.Location = new System.Drawing.Point(45, 216);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(121, 20);
-            this.textBox4.TabIndex = 9;
+            this.textNoOfNeighbours.Location = new System.Drawing.Point(45, 216);
+            this.textNoOfNeighbours.Name = "textNoOfNeighbours";
+            this.textNoOfNeighbours.Size = new System.Drawing.Size(121, 20);
+            this.textNoOfNeighbours.TabIndex = 9;
             // 
             // label5
             // 
@@ -150,18 +151,18 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Liczba sąsiadów";
             // 
-            // comboBox2
+            // comboBoxSetSize
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.comboBoxSetSize.FormattingEnabled = true;
+            this.comboBoxSetSize.Items.AddRange(new object[] {
             "20%",
             "40%",
             "60%",
             "80%"});
-            this.comboBox2.Location = new System.Drawing.Point(45, 275);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 11;
+            this.comboBoxSetSize.Location = new System.Drawing.Point(45, 275);
+            this.comboBoxSetSize.Name = "comboBoxSetSize";
+            this.comboBoxSetSize.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxSetSize.TabIndex = 11;
             // 
             // label6
             // 
@@ -179,17 +180,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(357, 411);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.comboBoxSetSize);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textNoOfNeighbours);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textWynik);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxMetric);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textStringOfWords);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textKeyWord);
             this.Controls.Add(button1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -200,18 +201,18 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textKeyWord;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textStringOfWords;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxMetric;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textWynik;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textNoOfNeighbours;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBoxSetSize;
         private System.Windows.Forms.Label label6;
     }
 }

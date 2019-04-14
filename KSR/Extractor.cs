@@ -43,30 +43,30 @@ namespace KSR
             return keywordCounters;
         }
 
-        public Dictionary<string, bool> CheckExistingKeywords(List<string> listOfwords, string text) {
-            EnglishStemmer stemmer = new EnglishStemmer();
-            Dictionary<string, bool> hasExistingKeyword = new Dictionary<string, bool>();
+        //public Dictionary<string, bool> CheckExistingKeywords(List<string> listOfwords, string text) {
+        //    EnglishStemmer stemmer = new EnglishStemmer();
+        //    Dictionary<string, bool> hasExistingKeyword = new Dictionary<string, bool>();
 
-            foreach (string word in listOfwords) {
-                string stemmedWord = stemmer.Stem(word);
-                char[] delimiters = new char[] { ' ' };
-                string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+        //    foreach (string word in listOfwords) {
+        //        string stemmedWord = stemmer.Stem(word);
+        //        char[] delimiters = new char[] { ' ' };
+        //        string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
-                int cnt = 0;
-                int i = 0;
-                hasExistingKeyword[word] = false;
+        //        int cnt = 0;
+        //        int i = 0;
+        //        hasExistingKeyword[word] = false;
 
-                while (i < words.Length) {
-                    if (stemmedWord == words[i]) {
-                        hasExistingKeyword[word] = true;
-                    }
-                    i++;
-                }
+        //        while (i < words.Length) {
+        //            if (stemmedWord == words[i]) {
+        //                hasExistingKeyword[word] = true;
+        //            }
+        //            i++;
+        //        }
                 
-            }
+        //    }
 
-            return hasExistingKeyword;
-        }
+        //    return hasExistingKeyword;
+        //}
 
         public Dictionary<string, bool> CheckExistingKeywords(Dictionary<string, int> keywordsCounter, string text) {
 
@@ -135,7 +135,7 @@ namespace KSR
             return keywordsPosition;
         }
 
-        public double calculateGeneralNGrams(string firstWord, string secondWord) {
+        public double CalculateGeneralNGrams(string firstWord, string secondWord) {
 
             int firstWordLength = firstWord.Length;
             int secondWordLength = secondWord.Length;

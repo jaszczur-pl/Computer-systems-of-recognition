@@ -17,8 +17,13 @@ namespace KSR
         public Dictionary<string, bool> hasExistingKeyword { get; set; }
         public Dictionary<string, int> KeywordCounter { get; set; }
         public Dictionary<string, int> KeywordFirstPosition { get; set; }
-        public Dictionary<string, int> UserKeywordCounter { get; set; }
         public Dictionary<string, double> KeywordFrequency { get; set; }
+
+        //propositions?
+        //public int NumberOfNumbers;
+        //public int NumberOfCharactersInText;
+        //public int NumberOfWordsWithLessThan5Chars;
+        //public string KeyWord;
 
         public List<double> AllCharacteristicValues { get; set; }
 
@@ -47,10 +52,6 @@ namespace KSR
             }
 
             foreach (KeyValuePair<string, int> entry in KeywordFirstPosition) {
-                AllCharacteristicValues.Add(entry.Value);
-            }
-
-            foreach (KeyValuePair<string, int> entry in UserKeywordCounter) {
                 AllCharacteristicValues.Add(entry.Value);
             }
 

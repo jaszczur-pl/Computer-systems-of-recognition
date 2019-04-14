@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KSR.Metrics;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,14 +11,20 @@ using System.Windows.Forms;
 
 namespace KSR.View
 {
-    public partial class Form1 : Form
-    {
+    public partial class Form1 : Form {
         public Form1() {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e) {
-
+            Processing processing = new Processing();
+            List<string> userkeyWords = new List<string>() { textKeyWord.Text };
+            string stringOfWords = textStringOfWords.Text;
+            int neighbours = Convert.ToInt32(textNoOfNeighbours.Text);
+            string sizeOfSet = comboBoxSetSize.Text;
+            string metric = comboBoxMetric.Text;
+            double result = processing.MainProcess(userkeyWords, stringOfWords, sizeOfSet, neighbours, metric);
+            textWynik.Text = result.ToString();
         }
 
         private void label1_Click(object sender, EventArgs e) {
@@ -37,6 +44,10 @@ namespace KSR.View
         }
 
         private void label3_Click(object sender, EventArgs e) {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e) {
 
         }
     }
