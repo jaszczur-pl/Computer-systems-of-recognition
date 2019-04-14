@@ -34,12 +34,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new System.Drawing.Point(106, 317);
+            button1.Location = new System.Drawing.Point(131, 338);
             button1.Name = "button1";
             button1.Size = new System.Drawing.Size(75, 23);
             button1.TabIndex = 0;
@@ -51,7 +57,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(45, 46);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(117, 20);
+            this.textBox1.Size = new System.Drawing.Size(121, 20);
             this.textBox1.TabIndex = 1;
             // 
             // toolTip1
@@ -65,16 +71,16 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(45, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 13);
+            this.label1.Size = new System.Drawing.Size(86, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "słowa kluczowe";
+            this.label1.Text = "Słowo kluczowe";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(45, 104);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(117, 20);
+            this.textBox2.Size = new System.Drawing.Size(121, 20);
             this.textBox2.TabIndex = 3;
             // 
             // label2
@@ -82,9 +88,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(45, 88);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 13);
+            this.label2.Size = new System.Drawing.Size(90, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "podciąg wyrazów";
+            this.label2.Text = "Podciąg wyrazów";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // comboBox1
@@ -93,7 +99,9 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Euklidesowa",
             "Uliczna",
-            "Czebyszewa"});
+            "Czebyszewa",
+            "MinMax",
+            "MinMax2"});
             this.comboBox1.Location = new System.Drawing.Point(45, 158);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
@@ -104,15 +112,78 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(45, 142);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 6;
-            this.label3.Text = "metryka";
+            this.label3.Text = "Metryka";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(218, 46);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(218, 27);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(37, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Wynik";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(45, 216);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(121, 20);
+            this.textBox4.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(42, 200);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(85, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Liczba sąsiadów";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "20%",
+            "40%",
+            "60%",
+            "80%"});
+            this.comboBox2.Location = new System.Drawing.Point(45, 275);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 11;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(42, 259);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(143, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Wielkość zestawu uczącego";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(595, 411);
+            this.ClientSize = new System.Drawing.Size(357, 411);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label2);
@@ -136,5 +207,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label6;
     }
 }
