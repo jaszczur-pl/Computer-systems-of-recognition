@@ -57,7 +57,7 @@
     <Compile Include="ArticleRepo.cs" />
     <Compile Include="Extractor.cs" />
     <Compile Include="FileHandler.cs" />
-    <Compile Include="Metrics\AnotherMetric.cs" />
+    <Compile Include="Metrics\MinMax2Metric.cs" />
     <Compile Include="Metrics\EuclideanMetric.cs" />
     <Compile Include="Metrics\IMetric.cs" />
     <Compile Include="Metrics\ManhattanMetric.cs" />

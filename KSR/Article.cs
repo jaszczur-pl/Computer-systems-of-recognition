@@ -26,7 +26,23 @@ namespace KSR
             AllCharacteristicValues = new List<double>();
             AllCharacteristicValues.Add(WordCounter);
 
-            foreach(KeyValuePair<string, int> entry in KeywordCounter) {
+            if(HasStringOfWords == true) {
+                AllCharacteristicValues.Add(1.0);
+            }
+            else {
+                AllCharacteristicValues.Add(0);
+            }
+
+            foreach (KeyValuePair<string, bool> entry in hasExistingKeyword) {
+                if (entry.Value == true) {
+                    AllCharacteristicValues.Add(1.0);
+                }
+                else {
+                    AllCharacteristicValues.Add(0);
+                }
+            }
+
+            foreach (KeyValuePair<string, int> entry in KeywordCounter) {
                 AllCharacteristicValues.Add(entry.Value);
             }
 

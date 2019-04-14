@@ -65,25 +65,32 @@ namespace KSR
             //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).Label);
             //Console.ReadKey();
 
-            //Article A = new Article { Label = "usa", ID = "1", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
-            //Article B = new Article { Label = "germany", ID = "2", AllCharacteristicValues = new List<double> { 5.0, 7.0, 9.0 } };
-            //Article C = new Article { Label = "usa", ID = "3", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
-            //Article D = new Article { Label = "poland", ID = "4", AllCharacteristicValues = new List<double> { 6.0, 8.0, 4.0 } };
-            //Article E = new Article { Label = "poland", ID = "3", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
+            Article A = new Article { Label = "usa", ID = "1", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
+            Article B = new Article { Label = "germany", ID = "2", AllCharacteristicValues = new List<double> { 5.0, 7.0, 9.0 } };
+            Article C = new Article { Label = "usa", ID = "3", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
+            Article D = new Article { Label = "poland", ID = "4", AllCharacteristicValues = new List<double> { 6.0, 8.0, 4.0 } };
+            Article E = new Article { Label = "poland", ID = "3", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
 
-            //ArticleRepo trainingRep = new ArticleRepo();
-            //trainingRep.articles = new List<Article> { A, B, D };
+            ArticleRepo trainingRep = new ArticleRepo();
+            trainingRep.articles = new List<Article> { A, B, D };
 
-            //ArticleRepo testedRep = new ArticleRepo();
-            //testedRep.articles = new List<Article> { C, E };
+            ArticleRepo testedRep = new ArticleRepo();
+            testedRep.articles = new List<Article> { C, E };
 
-            //int neighboursNumber = 15;
-            //IMetric metric = new EuclideanMetric();
-            //double acc = extractor.Classify(trainingRep, testedRep, neighboursNumber, metric);
+            int neighboursNumber = 15;
+            IMetric metric = new EuclideanMetric();
+            double acc = extractor.Classify(trainingRep, testedRep, neighboursNumber, metric);
 
-            double acc = extractor.calculateGeneralNGrams("programmer", "programming");
+            //double acc = extractor.calculateGeneralNGrams("programmer", "programming");
 
             Console.WriteLine(acc);
+
+            List<double> listOne = new List<double> { 1, 90, 3, 3 };
+            List<double> listTwo = new List<double> { 7, 3, 5, 5 };
+
+            IMetric met = new MinMaxMetric();
+            double res = met.CalculateDistance(listOne, listTwo);
+            Console.WriteLine(res);
         }
 
     }
