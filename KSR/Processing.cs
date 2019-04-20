@@ -34,21 +34,30 @@ namespace KSR
         public void MainProcess() {
             List<string> userKeywords = new List<string>() { "usa" };
             string stringOfWords = "american dream";
+            string label = "PLACES";
+            int neighboursNumber = 15;
+            double trainingSetSize = 0.6;
+            double testingSetSize = 1.0 - trainingSetSize;
+            IMetric metric = new EuclideanMetric();
 
             XmlHandler XmlHandler = new XmlHandler();
             FileHandler fileHandler = new FileHandler();
 
+            //temporary block of code - start
             //XmlDocument xmlDoc = XmlHandler.GetMergedXmlDocuments();
-            //XmlNodeList xmlNodeList = XmlHandler.GetAllCorrectNodes(xmlDoc);
-            //ArticleRepo articleRepo = new ArticleRepo(xmlNodeList);
+            //XmlNodeList xmlNodeList = XmlHandler.GetAllCorrectNodes(xmlDoc, label);
+            //ArticleRepo articleRepo = new ArticleRepo(xmlNodeList, label);
 
             //articleRepo.CleanUpTextAndRemoveStopwords();
             //articleRepo.PerformStemming();
 
             //fileHandler.Serialize(articleRepo, allSerializedArticlesPath);
+            //temporary block of code - end
 
             ArticleRepo articleRepoDeserialized = new ArticleRepo();
             articleRepoDeserialized = fileHandler.Deserialize(allSerializedArticlesPath);
+            ArticleRepo trainingSet = articleRepoDeserialized.SelectTrainigSet(articleRepoDeserialized, trainingSetSize);
+            ArticleRepo testingSet = articleRepoDeserialized.SelectTestingSet(articleRepoDeserialized, testingSetSize);
 
             Extractor extractor = new Extractor();
 
@@ -63,23 +72,6 @@ namespace KSR
             }
 
 
-            //int elementNumber = 1;
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).WordCounter);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).hasExistingKeyword["america"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).hasExistingKeyword["germany"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).hasExistingKeyword["cocoa"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordCounter["america"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordCounter["germany"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordCounter["cocoa"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).UserKeywordCounter["america"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordFirstPosition["america"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordFirstPosition["germany"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordFrequency["america"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).HasStringOfWords);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).Text);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).Label);
-            //Console.ReadKey();
-
             Article A = new Article { Label = "usa", ID = "1", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
             Article B = new Article { Label = "germany", ID = "2", AllCharacteristicValues = new List<double> { 5.0, 7.0, 9.0 } };
             Article C = new Article { Label = "usa", ID = "3", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
@@ -92,8 +84,7 @@ namespace KSR
             ArticleRepo testedRep = new ArticleRepo();
             testedRep.articles = new List<Article> { C, E };
 
-            int neighboursNumber = 15;
-            IMetric metric = new EuclideanMetric();
+
             double acc = extractor.Classify(trainingRep, testedRep, neighboursNumber, metric);
 
             //double acc = extractor.CalculateGeneralNGrams("programmer", "programming");
@@ -108,17 +99,18 @@ namespace KSR
             Console.WriteLine(res);
         }
 
-        public double MainProcess(List<string> userKeywords, string stringOfWords, string sTrainingSet, int neighbours, string sMetric) {
+        public double MainProcess(List<string> userKeywords, string stringOfWords, string sTrainingSet, int neighbours, string sMetric, string label) {
 
             double trainingSetSize = dicTrainingSet[sTrainingSet];
+            double testingSetSize = 1.0 - trainingSetSize;
             IMetric metric = dicMetrics[sMetric];
 
             XmlHandler XmlHandler = new XmlHandler();
             FileHandler fileHandler = new FileHandler();
 
             //XmlDocument xmlDoc = XmlHandler.GetMergedXmlDocuments();
-            //XmlNodeList xmlNodeList = XmlHandler.GetAllCorrectNodes(xmlDoc);
-            //ArticleRepo articleRepo = new ArticleRepo(xmlNodeList);
+            //XmlNodeList xmlNodeList = XmlHandler.GetAllCorrectNodes(xmlDoc, label);
+            //ArticleRepo articleRepo = new ArticleRepo(xmlNodeList, label);
 
             //articleRepo.CleanUpTextAndRemoveStopwords();
             //articleRepo.PerformStemming();
@@ -127,6 +119,8 @@ namespace KSR
 
             ArticleRepo articleRepoDeserialized = new ArticleRepo();
             articleRepoDeserialized = fileHandler.Deserialize(allSerializedArticlesPath);
+            ArticleRepo trainingSet = articleRepoDeserialized.SelectTrainigSet(articleRepoDeserialized, trainingSetSize);
+            ArticleRepo testingSet = articleRepoDeserialized.SelectTestingSet(articleRepoDeserialized, testingSetSize);
 
             Extractor extractor = new Extractor();
 
@@ -139,24 +133,6 @@ namespace KSR
                 article.HasStringOfWords = extractor.CheckStringOfWords(stringOfWords, article.Text);
                 article.SetAllCharacteristicsValue();
             }
-
-
-            //int elementNumber = 1;
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).WordCounter);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).hasExistingKeyword["america"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).hasExistingKeyword["germany"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).hasExistingKeyword["cocoa"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordCounter["america"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordCounter["germany"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordCounter["cocoa"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).UserKeywordCounter["america"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordFirstPosition["america"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordFirstPosition["germany"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).KeywordFrequency["america"]);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).HasStringOfWords);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).Text);
-            //Console.WriteLine(articleRepoDeserialized.articles.ElementAt(elementNumber).Label);
-            //Console.ReadKey();
 
             Article A = new Article { Label = "usa", ID = "1", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
             Article B = new Article { Label = "germany", ID = "2", AllCharacteristicValues = new List<double> { 5.0, 7.0, 9.0 } };

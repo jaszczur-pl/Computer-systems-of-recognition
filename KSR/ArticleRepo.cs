@@ -16,20 +16,21 @@ namespace KSR
 
         public ArticleRepo() { }
 
-        public ArticleRepo(XmlNodeList xmlNodeList) {
+        public ArticleRepo(XmlNodeList xmlNodeList, string label) {
             articles = new List<Article>();
+            string xpath = label + "/D";
 
             foreach (XmlNode node in xmlNodeList) {
                 Article article = new Article();
 
                 article.ID = node.Attributes["NEWID"].InnerXml;
-                if (node.SelectSingleNode("PLACES/D") == null) {
-                    article.Label = "None";
-                }
-                else {
-                    article.Label = node.SelectSingleNode("PLACES/D").InnerText;
-                }
-                //article.Label = node.SelectSingleNode("PLACES/D").InnerText;
+                //if (node.SelectSingleNode("PLACES/D") == null) {
+                //    article.Label = "None";
+                //}
+                //else {
+                //    article.Label = node.SelectSingleNode("PLACES/D").InnerText;
+                //}
+                article.Label = node.SelectSingleNode(xpath).InnerText;
                 article.Text = node.SelectSingleNode("TEXT/BODY").InnerText;
 
                 articles.Add(article);
@@ -77,7 +78,26 @@ namespace KSR
             return stoplistRegex;
         }
 
+        public ArticleRepo SelectTrainigSet (ArticleRepo wholeRepository, double trainingSetSize) {
 
+            int numberOfTrainingElements = (int) (wholeRepository.articles.Count * trainingSetSize);
+            ArticleRepo trainingReposiotry = new ArticleRepo();
 
+            trainingReposiotry.articles = wholeRepository.articles.GetRange(0, numberOfTrainingElements);
+
+            return trainingReposiotry;
+        }
+
+        public ArticleRepo SelectTestingSet(ArticleRepo wholeRepository, double testingSetSize) {
+
+            int numberOfTestingElements = (int)(wholeRepository.articles.Count * testingSetSize);
+            int startingIndex = wholeRepository.articles.Count - numberOfTestingElements;
+
+            ArticleRepo trainingReposiotry = new ArticleRepo();
+
+            trainingReposiotry.articles = wholeRepository.articles.GetRange(startingIndex, numberOfTestingElements);
+
+            return trainingReposiotry;
+        }
     }
 }

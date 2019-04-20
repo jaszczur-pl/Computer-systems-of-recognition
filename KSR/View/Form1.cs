@@ -23,7 +23,8 @@ namespace KSR.View
             int neighbours = Convert.ToInt32(textNoOfNeighbours.Text);
             string sizeOfSet = comboBoxSetSize.Text;
             string metric = comboBoxMetric.Text;
-            double result = processing.MainProcess(userkeyWords, stringOfWords, sizeOfSet, neighbours, metric);
+            string label = "PLACES";
+            double result = processing.MainProcess(userkeyWords, stringOfWords, sizeOfSet, neighbours, metric, label);
             textWynik.Text = result.ToString();
         }
 

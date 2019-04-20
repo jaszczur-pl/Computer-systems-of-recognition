@@ -40,9 +40,12 @@ namespace KSR
             return xmlDoc.DocumentElement.ChildNodes;
         }
 
-        public XmlNodeList GetAllCorrectNodes(XmlDocument xmlDoc) {
-            
-            XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("REUTERS[TEXT[count(BODY)>0]]");
+        public XmlNodeList GetAllCorrectNodes(XmlDocument xmlDoc, string label) {
+
+            string xpath = "REUTERS[TEXT[count(BODY)>0] and " + label + "[count(D)=1]]";
+
+            XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes(xpath);
+            //XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("REUTERS[TEXT[count(BODY)>0]]");
 
             return nodeList;
         }
