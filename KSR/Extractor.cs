@@ -19,6 +19,100 @@ namespace KSR
             return cnt;
         }
 
+        public int CountKeywords(string keyword, string text) {
+            EnglishStemmer stemmer = new EnglishStemmer();
+
+                string stemmedWord = stemmer.Stem(keyword);
+                char[] delimiters = new char[] { ' ' };
+                string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+
+                int cnt = 0;
+                int i = 0;
+
+                while (i < words.Length) {
+                    if (stemmedWord == words[i]) {
+                        cnt++;
+                    }
+                    i++;
+                }
+
+            return cnt;
+        }
+
+        public int CheckExistingKeywords(int keywordsCounter, string text) {
+
+            int hasExistingKeyword;
+
+                if (keywordsCounter == 0) {
+                    hasExistingKeyword = 0;
+                }
+                else {
+                    hasExistingKeyword = 1;
+                }
+
+            return hasExistingKeyword;
+        }
+
+        public double CheckKeywordFrequency(int keywordCounter, int numberOfWordsInText) {
+
+            double keywordFrequency = Math.Round((double)keywordCounter/ numberOfWordsInText, 3);
+
+            return keywordFrequency;
+        }
+
+        public int CheckStringOfWordsInt(string stringOfWords, string text) {
+            EnglishStemmer stemmer = new EnglishStemmer();
+            stringOfWords = stringOfWords.ToLower();
+
+            char[] delimiters = new char[] { ' ' };
+
+            foreach (string word in stringOfWords.Split(delimiters, StringSplitOptions.RemoveEmptyEntries)) {
+                stringOfWords = stringOfWords.Replace(word, stemmer.Stem(word));
+            }
+
+            bool hasString = Regex.IsMatch(text, stringOfWords);
+
+            if (hasString) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+
+        public double CheckKeywordPosition(string keyword, string text) {
+            EnglishStemmer stemmer = new EnglishStemmer();
+
+            string stemmedWord = stemmer.Stem(keyword);
+            int position = 100;
+
+            char[] delimiters = new char[] { ' ' };
+            string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            int wordsCnt = words.Length;
+
+            int i = 0;
+
+            while (i < words.Length) {
+                if (keyword == words[i]) {
+                    position = i + 1;
+                    break;
+                }
+                i++;
+            }
+
+            if (position < 10) {
+                return 1;
+            } else if (position < 20) {
+                return 0.75;
+            } else if (position < 30) {
+                return 0.5;
+            } else if (position < 40) {
+                return 0.25;
+            } else {
+                return 0;
+            }
+        }
+
+
         public Dictionary<string, int> CountKeywords(List<string> listOfwords, string text) {
             EnglishStemmer stemmer = new EnglishStemmer();
             Dictionary<string, int> keywordCounters = new Dictionary<string, int>();
@@ -42,31 +136,6 @@ namespace KSR
 
             return keywordCounters;
         }
-
-        //public Dictionary<string, bool> CheckExistingKeywords(List<string> listOfwords, string text) {
-        //    EnglishStemmer stemmer = new EnglishStemmer();
-        //    Dictionary<string, bool> hasExistingKeyword = new Dictionary<string, bool>();
-
-        //    foreach (string word in listOfwords) {
-        //        string stemmedWord = stemmer.Stem(word);
-        //        char[] delimiters = new char[] { ' ' };
-        //        string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-
-        //        int cnt = 0;
-        //        int i = 0;
-        //        hasExistingKeyword[word] = false;
-
-        //        while (i < words.Length) {
-        //            if (stemmedWord == words[i]) {
-        //                hasExistingKeyword[word] = true;
-        //            }
-        //            i++;
-        //        }
-                
-        //    }
-
-        //    return hasExistingKeyword;
-        //}
 
         public Dictionary<string, bool> CheckExistingKeywords(Dictionary<string, int> keywordsCounter, string text) {
 
