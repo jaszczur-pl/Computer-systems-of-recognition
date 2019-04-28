@@ -41,7 +41,6 @@ namespace KSR
             List<string> punctations = new List<string>(new string[] { ".", ",", ":", ";", "-", "!", "?", "/", "\\" });
             List<string> stoplist = BuildStoplist();
            
-
             //Remove all punctations, stopwords and whitespaces
             foreach(Article article in articles) {
                 StringBuilder sb = new StringBuilder(article.Text.ToLower());

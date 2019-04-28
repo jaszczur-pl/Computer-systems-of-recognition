@@ -15,12 +15,12 @@ namespace KSR
         [STAThread]
         static void Main(string[] args) {
 
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Form1());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
 
-            Processing process = new Processing();
-            process.MainProcess();
+            //Processing process = new Processing();
+            //process.MainProcess();
 
             //XmlNodeList nodeListPlacesUsa = xmlRoot.SelectNodes("REUTERS[PLACES/D='usa' and PLACES[count(D)=1]]");
         }

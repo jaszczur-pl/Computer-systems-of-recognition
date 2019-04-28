@@ -11,35 +11,64 @@ namespace KSR
 {
     class Extractor
     {
-        public int CountAllWords(string text) {
+        public double CountAllWords(string text) {
             char[] delimiters = new char[] { ' ' };
 
             int cnt = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Length;
 
-            return cnt;
+            if (cnt < 30) {
+                return 1.0;
+            }
+            else if (cnt < 60) {
+                return 0.8;
+            }
+            else if (cnt < 90) {
+                return 0.6;
+            }
+            else if (cnt < 120) {
+                return 0.4;
+            }
+            else if (cnt < 150) {
+                return 0.2;
+            }
+            else {
+                return 0;
+            }
         }
 
-        public int CountKeywords(string keyword, string text) {
+        public double CountKeywords(string keyword, string text) {
             EnglishStemmer stemmer = new EnglishStemmer();
 
-                string stemmedWord = stemmer.Stem(keyword);
-                char[] delimiters = new char[] { ' ' };
-                string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            string stemmedWord = stemmer.Stem(keyword);
+            char[] delimiters = new char[] { ' ' };
+            string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
-                int cnt = 0;
-                int i = 0;
+            int cnt = 0;
+            int i = 0;
 
-                while (i < words.Length) {
-                    if (stemmedWord == words[i]) {
-                        cnt++;
-                    }
-                    i++;
+            while (i < words.Length) {
+                if (stemmedWord == words[i]) {
+                    cnt++;
                 }
+                i++;
+            }
 
-            return cnt;
+            if (cnt >= 5) {
+                return 1.0;
+            } else if (cnt == 4) {
+                return 0.8;
+            } else if (cnt == 3) {
+                return 0.6;
+            } else if (cnt == 2) {
+                return 0.4;
+            } else if (cnt == 1) {
+                return 0.2;
+            } else {
+                return 0;
+            }
         }
 
-        public int CheckExistingKeywords(int keywordsCounter, string text) {
+        public double CheckExistingKeywords(double keywordsCounter, string text) {
 
             int hasExistingKeyword;
 
@@ -53,14 +82,30 @@ namespace KSR
             return hasExistingKeyword;
         }
 
-        public double CheckKeywordFrequency(int keywordCounter, int numberOfWordsInText) {
+        public double CheckKeywordFrequency(string keyword, string text) {
 
-            double keywordFrequency = Math.Round((double)keywordCounter/ numberOfWordsInText, 3);
+            EnglishStemmer stemmer = new EnglishStemmer();
+            char[] delimiters = new char[] { ' ' };
 
-            return keywordFrequency;
+            int textCnt = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Length;
+
+            string stemmedWord = stemmer.Stem(keyword);
+            string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+
+            int keywordCnt = 0;
+            int i = 0;
+
+            while (i < words.Length) {
+                if (stemmedWord == words[i]) {
+                    keywordCnt++;
+                }
+                i++;
+            }
+
+            return (double)keywordCnt / textCnt;
         }
 
-        public int CheckStringOfWordsInt(string stringOfWords, string text) {
+        public double CheckStringOfWordsDbl(string stringOfWords, string text) {
             EnglishStemmer stemmer = new EnglishStemmer();
             stringOfWords = stringOfWords.ToLower();
 

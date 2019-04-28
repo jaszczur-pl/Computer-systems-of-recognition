@@ -18,38 +18,18 @@ namespace KSR.View
 
         private void button1_Click(object sender, EventArgs e) {
             Processing processing = new Processing();
-            List<string> userkeyWords = new List<string>() { textKeyWord.Text };
+
+            string keyword = textKeyWord.Text;
             string stringOfWords = textStringOfWords.Text;
             int neighbours = Convert.ToInt32(textNoOfNeighbours.Text);
             string sizeOfSet = comboBoxSetSize.Text;
             string metric = comboBoxMetric.Text;
-            string label = "PLACES";
-            double result = processing.MainProcess(userkeyWords, stringOfWords, sizeOfSet, neighbours, metric, label);
+            string label = comboBoxLabel.Text;
+            string labelToClassify = textLabelToClassify.Text;
+
+            double result = processing.MainProcess(keyword, stringOfWords, sizeOfSet, neighbours, metric, label, labelToClassify);
+
             textWynik.Text = result.ToString();
-        }
-
-        private void label1_Click(object sender, EventArgs e) {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e) {
-
-        }
-
-        private void toolTip1_Popup(object sender, PopupEventArgs e) {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e) {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e) {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e) {
-
         }
     }
 }
