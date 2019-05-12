@@ -98,7 +98,7 @@
             "Czebyszewa",
             "MinMax",
             "MinMax2"});
-            this.comboBoxMetric.Location = new System.Drawing.Point(45, 158);
+            this.comboBoxMetric.Location = new System.Drawing.Point(221, 166);
             this.comboBoxMetric.Name = "comboBoxMetric";
             this.comboBoxMetric.Size = new System.Drawing.Size(121, 21);
             this.comboBoxMetric.TabIndex = 5;
@@ -106,7 +106,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(45, 142);
+            this.label3.Location = new System.Drawing.Point(221, 150);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 6;
@@ -131,7 +131,7 @@
             // 
             // textNoOfNeighbours
             // 
-            this.textNoOfNeighbours.Location = new System.Drawing.Point(45, 216);
+            this.textNoOfNeighbours.Location = new System.Drawing.Point(221, 224);
             this.textNoOfNeighbours.Name = "textNoOfNeighbours";
             this.textNoOfNeighbours.Size = new System.Drawing.Size(121, 20);
             this.textNoOfNeighbours.TabIndex = 9;
@@ -139,7 +139,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(42, 200);
+            this.label5.Location = new System.Drawing.Point(218, 208);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(85, 13);
             this.label5.TabIndex = 10;
@@ -153,7 +153,7 @@
             "40%",
             "60%",
             "80%"});
-            this.comboBoxSetSize.Location = new System.Drawing.Point(45, 275);
+            this.comboBoxSetSize.Location = new System.Drawing.Point(221, 283);
             this.comboBoxSetSize.Name = "comboBoxSetSize";
             this.comboBoxSetSize.Size = new System.Drawing.Size(121, 21);
             this.comboBoxSetSize.TabIndex = 11;
@@ -161,7 +161,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(42, 259);
+            this.label6.Location = new System.Drawing.Point(218, 267);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(143, 13);
             this.label6.TabIndex = 12;

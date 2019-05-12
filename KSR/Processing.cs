@@ -11,7 +11,7 @@ namespace KSR
 {
     class Processing
     {
-        private readonly Dictionary<string, IMetric> dicMetrics = new Dictionary<string, IMetric>() {
+        private readonly Dictionary<string, IMetric> metrics = new Dictionary<string, IMetric>() {
             { "Euklidesowa", new EuclideanMetric()},
             { "Uliczna", new ManhattanMetric()},
             { "Czebyszewa", new MaximumMetric()},
@@ -19,7 +19,7 @@ namespace KSR
             { "MinMax2", new MinMax2Metric()},
         };
 
-        private readonly Dictionary<string, double> dicTrainingSet = new Dictionary<string, double>() {
+        private readonly Dictionary<string, double> trainingSet = new Dictionary<string, double>() {
             { "20%", 0.2},
             { "40%", 0.4},
             { "60%", 0.6},
@@ -106,27 +106,30 @@ namespace KSR
             Console.WriteLine(acc);
         }
 
-        public double MainProcess(string keyword, string stringOfWords, string sTrainingSet, int neighbours, string sMetric, string label, string labelToClassify) {
+        public double MainProcess(string keyword, string stringOfWords, string selectedTrainingSet, int neighbours, string selectedMetric, string label, string labelToClassify) {
 
-            double trainingSetSize = dicTrainingSet[sTrainingSet];
+            double trainingSetSize = this.trainingSet[selectedTrainingSet];
             double testingSetSize = 1.0 - trainingSetSize;
-            IMetric metric = dicMetrics[sMetric];
+            IMetric metric = metrics[selectedMetric];
 
             XmlHandler XmlHandler = new XmlHandler();
             FileHandler fileHandler = new FileHandler();
+            string lastLabel = fileHandler.ReadLabelFromFile();
 
-            //XmlDocument xmlDoc = XmlHandler.GetMergedXmlDocuments();
-            //XmlNodeList xmlNodeList = XmlHandler.GetAllCorrectNodes(xmlDoc, label);
-            //ArticleRepo articleRepo = new ArticleRepo(xmlNodeList, label);
+            if(lastLabel != label) {
+                XmlDocument xmlDoc = XmlHandler.GetMergedXmlDocuments();
+                XmlNodeList xmlNodeList = XmlHandler.GetAllCorrectNodes(xmlDoc, label);
+                ArticleRepo articleRepo = new ArticleRepo(xmlNodeList, label);
 
-            //articleRepo.CleanUpTextAndRemoveStopwords();
-            //articleRepo.PerformStemming();
+                articleRepo.CleanUpTextAndRemoveStopwords();
+                articleRepo.PerformStemming();
 
-            //fileHandler.Serialize(articleRepo, allSerializedArticlesPath);
+                fileHandler.Serialize(articleRepo, allSerializedArticlesPath);
 
-            ArticleRepo articleRepoDeserialized = new ArticleRepo();
+                fileHandler.WriteLabelToFile(label);
+            }
 
-            articleRepoDeserialized = fileHandler.Deserialize(allSerializedArticlesPath);
+            ArticleRepo articleRepoDeserialized = fileHandler.Deserialize(allSerializedArticlesPath);
 
             ArticleRepo trainingSet = articleRepoDeserialized.SelectTrainigSet(articleRepoDeserialized, trainingSetSize);
 
@@ -145,33 +148,7 @@ namespace KSR
                 article.SetAllCharacteristicsValue();
             }
 
-            //foreach (Article article in articleRepoDeserialized.articles) {
-            //    article.WordCounter = extractor.CountAllWords(article.Text);
-            //    article.KeywordCounter = extractor.CountKeywords(keywords, article.Text);
-            //    article.hasExistingKeyword = extractor.CheckExistingKeywords(article.KeywordCounter, article.Text);
-            //    article.KeywordFirstPosition = extractor.CheckKeywordPosition(keywords, article.Text);
-            //    article.KeywordFrequency = extractor.CheckKeywordFrequency(article.KeywordCounter, article.WordCounter);
-            //    article.HasStringOfWords = extractor.CheckStringOfWords(stringOfWords, article.Text);
-            //    article.SetAllCharacteristicsValue();
-            //}
-
-            //Article A = new Article { Label = "usa", ID = "1", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
-            //Article B = new Article { Label = "germany", ID = "2", AllCharacteristicValues = new List<double> { 5.0, 7.0, 9.0 } };
-            //Article C = new Article { Label = "usa", ID = "3", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
-            //Article D = new Article { Label = "poland", ID = "4", AllCharacteristicValues = new List<double> { 6.0, 8.0, 4.0 } };
-            //Article E = new Article { Label = "poland", ID = "3", AllCharacteristicValues = new List<double> { 1.0, 2.0, 3.0 } };
-
-            //ArticleRepo trainingRep = new ArticleRepo();
-            //trainingRep.articles = new List<Article> { A, B, D };
-
-            //ArticleRepo testedRep = new ArticleRepo();
-            //testedRep.articles = new List<Article> { C, E };
-
-            //double acc = extractor.Classify(trainingRep, testedRep, neighbours, metric);
-
             double acc = extractor.Classify(trainingSet, testingSet, neighbours, metric);
-
-            //double acc = extractor.CalculateGeneralNGrams("programmer", "programming");
 
             return acc;
         }

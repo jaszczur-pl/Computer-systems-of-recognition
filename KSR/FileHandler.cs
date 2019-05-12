@@ -12,6 +12,7 @@ namespace KSR
     class FileHandler
     {
         const string stopwordsPath = @"..\..\Resources\stopwords.txt";
+        const string labelFilePath = @"..\..\Resources\label.txt";
         const string sgmFilesDirectory = @"..\..\Resources";
 
         public void WriteParentNode(string filePath) {
@@ -70,6 +71,15 @@ namespace KSR
             }
 
             return articleRepo;
+        }
+
+        public void WriteLabelToFile(string label) {
+
+            File.WriteAllText(labelFilePath, label);
+        }
+
+        public string ReadLabelFromFile() {
+            return File.ReadAllText(labelFilePath);
         }
     }
 }

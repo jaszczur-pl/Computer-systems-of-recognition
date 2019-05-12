@@ -157,7 +157,6 @@ namespace KSR
             }
         }
 
-
         public Dictionary<string, int> CountKeywords(List<string> listOfwords, string text) {
             EnglishStemmer stemmer = new EnglishStemmer();
             Dictionary<string, int> keywordCounters = new Dictionary<string, int>();
