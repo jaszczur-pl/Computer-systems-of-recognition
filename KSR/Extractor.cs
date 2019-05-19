@@ -11,66 +11,102 @@ namespace KSR
 {
     class Extractor
     {
-        public double CountAllWords(string text) {
-            char[] delimiters = new char[] { ' ' };
+        public string GetKeyword(List<Article> articles) {
 
-            int cnt = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Length;
+            Dictionary<string, int> words = new Dictionary<string, int>();
 
-            if (cnt < 30) {
-                return 1.0;
+            foreach(Article article in articles) {
+                foreach(string w in article.Words) {
+                    if (!words.ContainsKey(w)) {
+                        words.Add(w, 1);
+                    }
+                    else {
+                        words[w] += 1;
+                    }
+                }
             }
-            else if (cnt < 60) {
-                return 0.8;
-            }
-            else if (cnt < 90) {
-                return 0.6;
-            }
-            else if (cnt < 120) {
-                return 0.4;
-            }
-            else if (cnt < 150) {
-                return 0.2;
-            }
-            else {
-                return 0;
-            }
+
+            string keyword = words.OrderByDescending(v => v.Value).First().Key;
+
+            return keyword;
         }
 
-        public double CountKeywords(string keyword, string text) {
+        public List<Article> CountAllWords(List<Article> articles) {
+
+            double max = 0;
+            double min = articles[0].Words.Count;
+
+            foreach(Article article in articles) {
+                article.AllCharacteristicValues = new List<double>();
+
+                int cnt = article.Words.Count;
+                article.AllCharacteristicValues.Add(cnt);
+
+                if (max < cnt) {
+                    max = cnt;
+                }
+
+                if (min > cnt) {
+                    min = cnt;
+                }
+            }
+
+            int elements = articles[0].AllCharacteristicValues.Count;
+
+            foreach (Article article in articles) {
+                double oldValue = article.AllCharacteristicValues.Last();
+                double newValue = CalcMinMaxNormalization(oldValue, max, min);
+                article.AllCharacteristicValues[elements - 1] = newValue;
+            }
+
+            return articles;
+        }
+
+        public List<Article> CountKeywords(string keyword, List<Article> articles) {
             EnglishStemmer stemmer = new EnglishStemmer();
 
             string stemmedWord = stemmer.Stem(keyword);
-            char[] delimiters = new char[] { ' ' };
-            string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            int max = 0;
+            int min = 1000;
 
-            int cnt = 0;
-            int i = 0;
+            foreach(Article article in articles) {
+                int cnt = 0;
+                int i = 0;
 
-            while (i < words.Length) {
-                if (stemmedWord == words[i]) {
-                    cnt++;
+                while (i < article.Words.Count) {
+                    if (stemmedWord == article.Words[i]) {
+                        cnt++;
+                    }
+                    i++;
                 }
-                i++;
+
+                article.AllCharacteristicValues.Add(cnt);
+
+                if (max < cnt) {
+                    max = cnt;
+                }
+
+                if (min > cnt) {
+                    min = cnt;
+                }
             }
 
-            if (cnt >= 5) {
-                return 1.0;
-            } else if (cnt == 4) {
-                return 0.8;
-            } else if (cnt == 3) {
-                return 0.6;
-            } else if (cnt == 2) {
-                return 0.4;
-            } else if (cnt == 1) {
-                return 0.2;
-            } else {
-                return 0;
+            int elements = articles[0].AllCharacteristicValues.Count;
+
+            foreach (Article article in articles) {
+                double oldValue = article.AllCharacteristicValues.Last();
+                double newValue = CalcMinMaxNormalization(oldValue, max, min);
+                article.AllCharacteristicValues[elements - 1] = newValue;
             }
+
+            return articles;
         }
 
-        public double CheckExistingKeywords(double keywordsCounter, string text) {
+        public List<Article> CheckExistingKeywords(List<Article> articles) {
 
             int hasExistingKeyword;
+            foreach (Article article in articles) {
+                double keywordsCounter = article.AllCharacteristicValues.Last();
 
                 if (keywordsCounter == 0) {
                     hasExistingKeyword = 0;
@@ -79,173 +115,96 @@ namespace KSR
                     hasExistingKeyword = 1;
                 }
 
-            return hasExistingKeyword;
+                article.AllCharacteristicValues.Add(hasExistingKeyword);
+            }
+            
+            return articles;
         }
 
-        public double CheckKeywordFrequency(string keyword, string text) {
+        public List<Article> CheckKeywordFrequency(string keyword, List<Article> articles) {
 
-            EnglishStemmer stemmer = new EnglishStemmer();
-            char[] delimiters = new char[] { ' ' };
-
-            int textCnt = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Length;
-
-            string stemmedWord = stemmer.Stem(keyword);
-            string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-
-            int keywordCnt = 0;
-            int i = 0;
-
-            while (i < words.Length) {
-                if (stemmedWord == words[i]) {
-                    keywordCnt++;
-                }
-                i++;
-            }
-
-            return (double)keywordCnt / textCnt;
-        }
-
-        public double CheckStringOfWordsDbl(string stringOfWords, string text) {
-            EnglishStemmer stemmer = new EnglishStemmer();
-            stringOfWords = stringOfWords.ToLower();
-
-            char[] delimiters = new char[] { ' ' };
-
-            foreach (string word in stringOfWords.Split(delimiters, StringSplitOptions.RemoveEmptyEntries)) {
-                stringOfWords = stringOfWords.Replace(word, stemmer.Stem(word));
-            }
-
-            bool hasString = Regex.IsMatch(text, stringOfWords);
-
-            if (hasString) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-
-        public double CheckKeywordPosition(string keyword, string text) {
             EnglishStemmer stemmer = new EnglishStemmer();
 
             string stemmedWord = stemmer.Stem(keyword);
-            int position = 100;
+            double max = 0;
+            double min = 2;
 
-            char[] delimiters = new char[] { ' ' };
-            string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-            int wordsCnt = words.Length;
-
-            int i = 0;
-
-            while (i < words.Length) {
-                if (keyword == words[i]) {
-                    position = i + 1;
-                    break;
-                }
-                i++;
-            }
-
-            if (position < 10) {
-                return 1;
-            } else if (position < 20) {
-                return 0.75;
-            } else if (position < 30) {
-                return 0.5;
-            } else if (position < 40) {
-                return 0.25;
-            } else {
-                return 0;
-            }
-        }
-
-        public Dictionary<string, int> CountKeywords(List<string> listOfwords, string text) {
-            EnglishStemmer stemmer = new EnglishStemmer();
-            Dictionary<string, int> keywordCounters = new Dictionary<string, int>();
-
-            foreach (string word in listOfwords) {
-                string stemmedWord = stemmer.Stem(word);
-                char[] delimiters = new char[] { ' ' };
-                string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-
-                int cnt = 0;
+            foreach(Article article in articles) {
+                double textCnt = article.Words.Count;
+                double keywordCnt = 0;
                 int i = 0;
 
-                while (i < words.Length) {
-                    if (stemmedWord == words[i]) {
-                        cnt++;
+                while (i < textCnt) {
+                    if (stemmedWord == article.Words[i]) {
+                        keywordCnt++;
                     }
                     i++;
                 }
-                keywordCounters[word] = cnt;
-            }
 
-            return keywordCounters;
-        }
+                double freq = (keywordCnt / textCnt);
+                article.AllCharacteristicValues.Add(freq);
 
-        public Dictionary<string, bool> CheckExistingKeywords(Dictionary<string, int> keywordsCounter, string text) {
-
-            Dictionary<string, bool> hasExistingKeyword = new Dictionary<string, bool>();
-
-            foreach (KeyValuePair<string, int> entry in keywordsCounter) {
-                if(entry.Value == 0) {
-                    hasExistingKeyword[entry.Key] = false;
+                if (max < freq) {
+                    max = freq;
                 }
-                else {
-                    hasExistingKeyword[entry.Key] = true;
+
+                if (min > freq) {
+                    min = freq;
                 }
             }
 
-            return hasExistingKeyword;
-        }
+            int elements = articles[0].AllCharacteristicValues.Count;
 
-        public Dictionary<string, double> CheckKeywordFrequency(Dictionary<string, int> keywordCounter, int numberOfWordsInText) {
-            Dictionary<string, double> keywordsFrequency = new Dictionary<string, double>();
-
-            foreach (KeyValuePair<string, int> entry in keywordCounter) {
-                keywordsFrequency[entry.Key] = Math.Round((double)entry.Value / numberOfWordsInText, 3);
+            foreach (Article article in articles) {
+                double oldValue = article.AllCharacteristicValues.Last();
+                double newValue = CalcMinMaxNormalization(oldValue, max, min);
+                article.AllCharacteristicValues[elements - 1] = newValue;
             }
 
-            return keywordsFrequency;
+            return articles;
         }
 
-        public bool CheckStringOfWords (string stringOfWords, string text) {
+        public List<Article> CheckKeywordPosition(string keyword, List<Article> articles) {
             EnglishStemmer stemmer = new EnglishStemmer();
-            stringOfWords = stringOfWords.ToLower();
 
-            char[] delimiters = new char[] { ' ' };
+            string stemmedWord = stemmer.Stem(keyword);
+            int max = 100;
+            int min = 1000;
 
-            foreach (string word in stringOfWords.Split(delimiters, StringSplitOptions.RemoveEmptyEntries)) {
-                stringOfWords = stringOfWords.Replace(word, stemmer.Stem(word));
-            }
-
-            bool hasString = Regex.IsMatch(text, stringOfWords);
-
-            return hasString;
-        }
-
-        //check the position of the word from the beginning of the text
-        public Dictionary<string, int> CheckKeywordPosition(List<string> listOfWords, string text) {
-            EnglishStemmer stemmer = new EnglishStemmer();
-            Dictionary<string, int> keywordsPosition = new Dictionary<string, int>();
-
-            foreach(string word in listOfWords) {
-                string stemmedWord = stemmer.Stem(word);
-                int position = -1;
-
-                char[] delimiters = new char[] { ' ' };
-                string[] words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-
+            foreach (Article article in articles) {
+                int position = 100;
                 int i = 0;
-                while (i < words.Length) {
-                    if (word == words[i]) {
-                        position = i + 1;
-                        break;
+
+                while (i < article.Words.Count) {
+                    if (keyword == article.Words[i]) {
+                        if (i >= 100) {
+                            position = 0;
+                            break;
+                        }
+                        else {
+                            position -= i;
+                            break;
+                        }
                     }
                     i++;
                 }
-                keywordsPosition[word] = position;
+
+                article.AllCharacteristicValues.Add(position);
+
+                if (min > position) {
+                    min = position;
+                }
             }
 
-            return keywordsPosition;
+            int elements = articles[0].AllCharacteristicValues.Count;
+
+            foreach (Article article in articles) {
+                double oldValue = article.AllCharacteristicValues.Last();
+                double newValue = CalcMinMaxNormalization(oldValue, max, min);
+                article.AllCharacteristicValues[elements - 1] = newValue;
+            }
+
+            return articles;
         }
 
         public double CalculateGeneralNGrams(string firstWord, string secondWord) {
@@ -284,8 +243,9 @@ namespace KSR
             int testedSetSize = testedSet.articles.Count;
 
             foreach(Article testedArticle in testedSet.articles) {
+                
 
-                foreach(Article trainingArticle in trainingSet.articles) {
+                foreach (Article trainingArticle in trainingSet.articles) {
                     double distance = metric.CalculateDistance(trainingArticle.AllCharacteristicValues, testedArticle.AllCharacteristicValues);
                     Article[] articleIDPair = { testedArticle, trainingArticle };
                     distancesDict[articleIDPair] = distance;
@@ -296,7 +256,7 @@ namespace KSR
                                   orderby entry.Value ascending
                                   select entry).Take(neighboursNumber);
 
-                foreach(var item in sortedDict) {
+                foreach (var item in sortedDict) {
                     string trainingLabel = item.Key.ElementAt(1).Label;
                     trainingLabels.Add(trainingLabel);
                 }
@@ -306,11 +266,17 @@ namespace KSR
                 if(testedLabel == testedArticle.Label) {
                     truePositiveCounter++;
                 }
+
+                trainingLabels.Clear();
             }
 
             double accuracy = (double)truePositiveCounter / testedSetSize;
 
             return accuracy;
+        }
+
+        private static double CalcMinMaxNormalization(double probe, double max, double min) {
+            return (probe - min) / (max - min);
         }
     }
 }

@@ -18,7 +18,6 @@ namespace KSR
 
             SgmlToXmlParser sgmlParser = new SgmlToXmlParser();
             XmlDocument xmlDoc = sgmlParser.GetXmlDoc(allFilePaths[0]);
-            XmlNodeList xmlNodeList;
 
             //omit first file path in array for further processing
             allFilePaths = allFilePaths.Where(x => x != allFilePaths[0]).ToArray();
@@ -45,7 +44,6 @@ namespace KSR
             string xpath = "REUTERS[TEXT[count(BODY)>0] and " + label + "[count(D)=1]]";
 
             XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes(xpath);
-            //XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("REUTERS[TEXT[count(BODY)>0]]");
 
             return nodeList;
         }

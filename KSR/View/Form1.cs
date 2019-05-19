@@ -18,30 +18,24 @@ namespace KSR.View
 
         private void button1_Click(object sender, EventArgs e) {
             Processing processing = new Processing();
-            Dictionary<string, string> characteristics = new Dictionary<string, string>();
+            Dictionary<string, bool> characteristics = new Dictionary<string, bool>();
 
-            if (textKeyWord.Text != "") {
-                characteristics["keyword"] = textKeyWord.Text;
-            } 
+            characteristics["numberOfWords"] = checkBox1.Checked;
+            characteristics["numberOfKeywords"] = checkBox2.Checked;
+            characteristics["hasKeyword"] = checkBox3.Checked;
+            characteristics["keywordPosition"] = checkBox4.Checked;
+            characteristics["keywordFrequency"] = checkBox5.Checked;
 
-            if (textStringOfWords.Text != "") {
-                characteristics["stringOfWords"] = textStringOfWords.Text;
-            }
+            int neighbours = Convert.ToInt32(textNoOfNeighbours.Text);
+            string sizeOfSet = comboBoxSetSize.Text;
+            string metric = comboBoxMetric.Text;
+            string label = comboBoxLabel.Text;
+            string labelToClassify = textLabelToClassify.Text;
 
-            if (textStringOfWords.Text != "") {
-                characteristics["stringOfWords"] = textStringOfWords.Text;
-            }
-            //string keyword = textKeyWord.Text;
-            //string stringOfWords = textStringOfWords.Text;
-            //int neighbours = Convert.ToInt32(textNoOfNeighbours.Text);
-            //string sizeOfSet = comboBoxSetSize.Text;
-            //string metric = comboBoxMetric.Text;
-            //string label = comboBoxLabel.Text;
-            //string labelToClassify = textLabelToClassify.Text;
+            double result = processing.MainProcess(sizeOfSet, neighbours, metric, label, labelToClassify, characteristics);
 
-            //double result = processing.MainProcess(keyword, stringOfWords, sizeOfSet, neighbours, metric, label, labelToClassify);
+            textWynik.Text = result.ToString();
 
-            //textWynik.Text = result.ToString();
         }
     }
 }

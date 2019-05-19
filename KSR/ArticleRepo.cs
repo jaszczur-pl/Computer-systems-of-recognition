@@ -24,12 +24,7 @@ namespace KSR
                 Article article = new Article();
 
                 article.ID = node.Attributes["NEWID"].InnerXml;
-                //if (node.SelectSingleNode("PLACES/D") == null) {
-                //    article.Label = "None";
-                //}
-                //else {
-                //    article.Label = node.SelectSingleNode("PLACES/D").InnerText;
-                //}
+
                 article.Label = node.SelectSingleNode(xpath).InnerText;
                 article.Text = node.SelectSingleNode("TEXT/BODY").InnerText;
 
@@ -53,7 +48,60 @@ namespace KSR
             }
         }
 
-        public void PerformStemming() {
+        public void SelectValidArticles(List<string> labels) {
+
+            List<Article> tempArticles = new List<Article>();
+
+            // select only valid tags
+            foreach(Article article in articles) {
+
+                foreach(string tag in labels) {
+                    if(article.Label == tag) {
+                        tempArticles.Add(article);
+                    }
+                }
+            }
+
+            articles = tempArticles;
+        }
+
+        public List<Article> SelectValidNumberOfArticles(List<string> labels, List<Article> trainingArticles) {
+
+            List<Article> tempArticles = new List<Article>();
+            Dictionary<string, int> tagNumbers = new Dictionary<string, int>();
+
+            // select only valid tags
+            foreach (Article article in trainingArticles) {
+
+                foreach (string tag in labels) {
+                    if (article.Label == tag) { 
+
+                        if (tagNumbers.Keys.Contains(tag)) {
+                            tagNumbers[tag] += 1;
+                        }
+                        else {
+                            tagNumbers.Add(tag, 0);
+                        }
+                    }
+                }
+            }
+
+            int value = tagNumbers.OrderBy(k => k.Value).First().Value;
+            string key = tagNumbers.OrderBy(k => k.Value).First().Key;
+
+            tempArticles.AddRange(trainingArticles.Where(x => x.Label == key));
+            labels.Remove(key);
+
+            //select the lowest number of articles for each tag
+
+            foreach (string tag in labels) {
+                tempArticles.AddRange(trainingArticles.Where(x => x.Label == tag).Take(value));
+            }
+
+            return tempArticles;
+        }
+
+        public void PerformStemmingAndListWords() {
             EnglishStemmer stemmer = new EnglishStemmer();
 
             foreach (Article article in articles) {
@@ -65,6 +113,10 @@ namespace KSR
                     text = text.Replace(word, stemmer.Stem(word));
                 }
 
+                article.Words = new List<string>();
+                article.Words = text.Split(' ').ToList();
+                int cnt = article.Words.Count - 2;
+                article.Words = article.Words.Take(cnt).ToList();
                 article.Text = text;
             }
         }
