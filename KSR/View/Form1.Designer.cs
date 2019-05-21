@@ -38,8 +38,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBoxLabel = new System.Windows.Forms.ComboBox();
-            this.textLabelToClassify = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -50,7 +48,7 @@
             // 
             // button1
             // 
-            button1.Location = new System.Drawing.Point(45, 358);
+            button1.Location = new System.Drawing.Point(44, 296);
             button1.Name = "button1";
             button1.Size = new System.Drawing.Size(75, 23);
             button1.TabIndex = 0;
@@ -67,7 +65,7 @@
             "Czebyszewa",
             "MinMax",
             "MinMax2"});
-            this.comboBoxMetric.Location = new System.Drawing.Point(255, 166);
+            this.comboBoxMetric.Location = new System.Drawing.Point(252, 106);
             this.comboBoxMetric.Name = "comboBoxMetric";
             this.comboBoxMetric.Size = new System.Drawing.Size(121, 21);
             this.comboBoxMetric.TabIndex = 5;
@@ -75,7 +73,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(255, 150);
+            this.label3.Location = new System.Drawing.Point(252, 90);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 6;
@@ -83,7 +81,7 @@
             // 
             // textWynik
             // 
-            this.textWynik.Location = new System.Drawing.Point(255, 360);
+            this.textWynik.Location = new System.Drawing.Point(254, 298);
             this.textWynik.Name = "textWynik";
             this.textWynik.ReadOnly = true;
             this.textWynik.Size = new System.Drawing.Size(100, 20);
@@ -92,7 +90,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(252, 344);
+            this.label4.Location = new System.Drawing.Point(251, 282);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 8;
@@ -100,7 +98,7 @@
             // 
             // textNoOfNeighbours
             // 
-            this.textNoOfNeighbours.Location = new System.Drawing.Point(255, 224);
+            this.textNoOfNeighbours.Location = new System.Drawing.Point(252, 164);
             this.textNoOfNeighbours.Name = "textNoOfNeighbours";
             this.textNoOfNeighbours.Size = new System.Drawing.Size(121, 20);
             this.textNoOfNeighbours.TabIndex = 9;
@@ -108,7 +106,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(252, 208);
+            this.label5.Location = new System.Drawing.Point(249, 148);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(85, 13);
             this.label5.TabIndex = 10;
@@ -122,7 +120,7 @@
             "40%",
             "60%",
             "80%"});
-            this.comboBoxSetSize.Location = new System.Drawing.Point(255, 283);
+            this.comboBoxSetSize.Location = new System.Drawing.Point(252, 223);
             this.comboBoxSetSize.Name = "comboBoxSetSize";
             this.comboBoxSetSize.Size = new System.Drawing.Size(121, 21);
             this.comboBoxSetSize.TabIndex = 11;
@@ -130,7 +128,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(252, 267);
+            this.label6.Location = new System.Drawing.Point(249, 207);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(143, 13);
             this.label6.TabIndex = 12;
@@ -161,28 +159,12 @@
             this.comboBoxLabel.Size = new System.Drawing.Size(121, 21);
             this.comboBoxLabel.TabIndex = 15;
             // 
-            // textLabelToClassify
-            // 
-            this.textLabelToClassify.Location = new System.Drawing.Point(255, 104);
-            this.textLabelToClassify.Name = "textLabelToClassify";
-            this.textLabelToClassify.Size = new System.Drawing.Size(121, 20);
-            this.textLabelToClassify.TabIndex = 16;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(252, 88);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(114, 13);
-            this.label8.TabIndex = 17;
-            this.label8.Text = "Etykieta do klasyfikacji";
-            // 
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
             this.checkBox3.Checked = true;
             this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3.Location = new System.Drawing.Point(45, 190);
+            this.checkBox3.Location = new System.Drawing.Point(45, 86);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(163, 17);
             this.checkBox3.TabIndex = 18;
@@ -194,7 +176,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(45, 150);
+            this.checkBox1.Location = new System.Drawing.Point(45, 46);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(131, 17);
             this.checkBox1.TabIndex = 20;
@@ -206,7 +188,7 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Checked = true;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(45, 170);
+            this.checkBox2.Location = new System.Drawing.Point(45, 66);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(190, 17);
             this.checkBox2.TabIndex = 21;
@@ -218,7 +200,7 @@
             this.checkBox4.AutoSize = true;
             this.checkBox4.Checked = true;
             this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox4.Location = new System.Drawing.Point(45, 213);
+            this.checkBox4.Location = new System.Drawing.Point(45, 109);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(203, 17);
             this.checkBox4.TabIndex = 22;
@@ -229,7 +211,7 @@
             // 
             this.checkBox5.Checked = true;
             this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox5.Location = new System.Drawing.Point(45, 236);
+            this.checkBox5.Location = new System.Drawing.Point(44, 132);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(202, 40);
             this.checkBox5.TabIndex = 23;
@@ -240,14 +222,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(447, 411);
+            this.ClientSize = new System.Drawing.Size(447, 349);
             this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.textLabelToClassify);
             this.Controls.Add(this.comboBoxLabel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -278,8 +258,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboBoxLabel;
-        private System.Windows.Forms.TextBox textLabelToClassify;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;

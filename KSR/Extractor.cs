@@ -26,6 +26,7 @@ namespace KSR
                 }
             }
 
+            words = words.OrderByDescending(v => v.Value).ToDictionary(x => x.Key, x => x.Value);
             string keyword = words.OrderByDescending(v => v.Value).First().Key;
 
             return keyword;
@@ -234,13 +235,13 @@ namespace KSR
             return result;
         }
 
-        public double Classify(ArticleRepo trainingSet, ArticleRepo testedSet, int neighboursNumber, IMetric metric) {
+        public int Classify(ArticleRepo trainingSet, ArticleRepo testedSet, int neighboursNumber, IMetric metric) {
 
             Dictionary<Article[], double> distancesDict = new Dictionary<Article[], double>();
             List<string> trainingLabels = new List<string>();
 
             int truePositiveCounter = 0;
-            int testedSetSize = testedSet.articles.Count;
+            
 
             foreach(Article testedArticle in testedSet.articles) {
                 
@@ -251,10 +252,7 @@ namespace KSR
                     distancesDict[articleIDPair] = distance;
                 }
 
-                var sortedDict = (from entry
-                                 in distancesDict
-                                  orderby entry.Value ascending
-                                  select entry).Take(neighboursNumber);
+                var sortedDict = distancesDict.OrderBy(x => x.Value).Take(neighboursNumber);
 
                 foreach (var item in sortedDict) {
                     string trainingLabel = item.Key.ElementAt(1).Label;
@@ -268,11 +266,10 @@ namespace KSR
                 }
 
                 trainingLabels.Clear();
+                distancesDict.Clear();
             }
 
-            double accuracy = (double)truePositiveCounter / testedSetSize;
-
-            return accuracy;
+            return truePositiveCounter;
         }
 
         private static double CalcMinMaxNormalization(double probe, double max, double min) {

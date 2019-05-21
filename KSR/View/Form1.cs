@@ -30,9 +30,8 @@ namespace KSR.View
             string sizeOfSet = comboBoxSetSize.Text;
             string metric = comboBoxMetric.Text;
             string label = comboBoxLabel.Text;
-            string labelToClassify = textLabelToClassify.Text;
 
-            double result = processing.MainProcess(sizeOfSet, neighbours, metric, label, labelToClassify, characteristics);
+            double result = processing.MainProcess(sizeOfSet, neighbours, metric, label, characteristics);
 
             textWynik.Text = result.ToString();
 
