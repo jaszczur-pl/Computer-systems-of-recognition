@@ -25,6 +25,8 @@ namespace KSR.View
             characteristics["hasKeyword"] = checkBox3.Checked;
             characteristics["keywordPosition"] = checkBox4.Checked;
             characteristics["keywordFrequency"] = checkBox5.Checked;
+            characteristics["wordsWithLess4Chars"] = checkBox6.Checked;
+            characteristics["wordsWithMore4Chars"] = checkBox7.Checked;
 
             int neighbours = Convert.ToInt32(textNoOfNeighbours.Text);
             string sizeOfSet = comboBoxSetSize.Text;

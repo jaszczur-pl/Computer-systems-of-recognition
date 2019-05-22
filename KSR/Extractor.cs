@@ -38,9 +38,82 @@ namespace KSR
             double min = articles[0].Words.Count;
 
             foreach(Article article in articles) {
-                article.AllCharacteristicValues = new List<double>();
 
                 int cnt = article.Words.Count;
+                article.AllCharacteristicValues.Add(cnt);
+
+                if (max < cnt) {
+                    max = cnt;
+                }
+
+                if (min > cnt) {
+                    min = cnt;
+                }
+            }
+
+            int elements = articles[0].AllCharacteristicValues.Count;
+
+            foreach (Article article in articles) {
+                double oldValue = article.AllCharacteristicValues.Last();
+                double newValue = CalcMinMaxNormalization(oldValue, max, min);
+                article.AllCharacteristicValues[elements - 1] = newValue;
+            }
+
+            return articles;
+        }
+
+        public List<Article> CountWordsWith4CharsOrLess(List<Article> articles) {
+
+            double max = 0;
+            double min = articles[0].Words.Count;
+
+            foreach (Article article in articles) {
+
+                int cnt = 0;
+
+                foreach(string word in article.Words) {
+                    if(word.Length <= 4) {
+                        cnt++;
+                    }
+                }
+
+                article.AllCharacteristicValues.Add(cnt);
+
+                if (max < cnt) {
+                    max = cnt;
+                }
+
+                if (min > cnt) {
+                    min = cnt;
+                }
+            }
+
+            int elements = articles[0].AllCharacteristicValues.Count;
+
+            foreach (Article article in articles) {
+                double oldValue = article.AllCharacteristicValues.Last();
+                double newValue = CalcMinMaxNormalization(oldValue, max, min);
+                article.AllCharacteristicValues[elements - 1] = newValue;
+            }
+
+            return articles;
+        }
+
+        public List<Article> CountWordsWithMoreThan4Chars(List<Article> articles) {
+
+            double max = 0;
+            double min = articles[0].Words.Count;
+
+            foreach (Article article in articles) {
+
+                int cnt = 0;
+
+                foreach (string word in article.Words) {
+                    if (word.Length > 4) {
+                        cnt++;
+                    }
+                }
+
                 article.AllCharacteristicValues.Add(cnt);
 
                 if (max < cnt) {

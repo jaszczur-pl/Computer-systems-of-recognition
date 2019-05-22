@@ -110,6 +110,12 @@ namespace KSR
                 if (characteristics["numberOfWords"]) {
                     processingList = extractor.CountAllWords(processingList);
                 }
+                if (characteristics["wordsWithLess4Chars"]) {
+                    processingList = extractor.CountWordsWith4CharsOrLess(processingList);
+                }
+                if (characteristics["wordsWithMore4Chars"]) {
+                    processingList = extractor.CountWordsWithMoreThan4Chars(processingList);
+                }
                 if (characteristics["numberOfKeywords"]) {
                     processingList = extractor.CountKeywords(calcKeyword, processingList);
                 }
@@ -122,6 +128,7 @@ namespace KSR
                 if (characteristics["keywordFrequency"]) {
                     processingList = extractor.CheckKeywordFrequency(calcKeyword, processingList);
                 }
+                
 
                 correctArticles += extractor.Classify(trainingSet, testingSet, neighbours, metric);
 
